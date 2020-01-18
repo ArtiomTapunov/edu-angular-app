@@ -1,4 +1,4 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class LoginComponent {
     login() {
         this.authService.authenticate(this.email, this.password).subscribe(x => {
             sessionStorage.setItem("token", x.access_token);
-            this.router.navigate(["users"]);
+            this.router.navigate(["home"]);
         })
     }
 }
