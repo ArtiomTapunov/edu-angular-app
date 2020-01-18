@@ -8,12 +8,24 @@ import { Router } from '@angular/router';
 
 export class NavigationComponent {
     public IsLoggedIn: boolean;
+    public IsAdmin: boolean;
 
     constructor (private router: Router){}
 
     ngOnInit() {
         const token = sessionStorage.getItem('token');
         this.IsLoggedIn = !!token;
+
+        if (this.IsLoggedIn){
+            if (sessionStorage.getItem('userRole') == "Admin")
+            {
+                this.IsAdmin = true;
+            }
+            else
+            {
+                this.IsAdmin = false;
+            }
+        }
     }
 
     logout() {
