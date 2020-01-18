@@ -1,8 +1,9 @@
 import { UsersComponent } from './components/users/users.component';
-import { LoginComponent } from './components/auth/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { BasicLayoutComponent } from './components/layouts/basiclayout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,16 @@ const routes: Routes = [
       {
         path: "",
         component: UsersComponent
+      }
+    ]
+  },
+  {
+    path: "home",
+    component: BasicLayoutComponent,
+    children: [
+      {
+        path: "",
+        component: HomeComponent
       }
     ]
   }
