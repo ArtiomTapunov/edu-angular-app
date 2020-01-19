@@ -25,10 +25,7 @@ export class LoginComponent {
         this.authService.authenticate(this.email, this.password).subscribe(x => {
             this.user = x.Data;
     
-            sessionStorage.setItem("userId", JSON.stringify(this.user.UserId));
-            sessionStorage.setItem("userFirstName", this.user.FirstName);
-            sessionStorage.setItem("userLastName", this.user.LastName);
-            sessionStorage.setItem("userEmail", this.user.Email);
+            sessionStorage.setItem("user", JSON.stringify(this.user));
             sessionStorage.setItem("userRole", this.user.Role);
 
             this.router.navigate(["home"]);
