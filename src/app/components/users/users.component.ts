@@ -19,11 +19,6 @@ export class UsersComponent implements OnInit {
    }
 
    ngOnInit() {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      this.router.navigate(["login"]);
-      return;
-    }
     this.userManagementService.listUsers(1).subscribe(x => {
       this.users = x.Data;
     })

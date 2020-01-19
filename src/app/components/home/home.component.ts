@@ -11,11 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      this.router.navigate(["login"]);
-      return;
-    }
+
   }
 
 }

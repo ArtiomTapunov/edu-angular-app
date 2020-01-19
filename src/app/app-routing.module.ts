@@ -1,9 +1,12 @@
+import { LoginGuard } from './helpers/login.guard';
+import { AdminGuard } from './helpers/admin.guard';
 import { UsersComponent } from './components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
 import { BasicLayoutComponent } from './components/layouts/basiclayout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './helpers/auth.guard';
 
 
 const routes: Routes = [
@@ -18,13 +21,15 @@ const routes: Routes = [
     children: [
       {
         path: "login",
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [LoginGuard]
       }
     ]
   },
   {
     path: "users",
     component: BasicLayoutComponent,
+    canActivate: [AuthGuard, AdminGuard],
     children: [
       {
         path: "",
@@ -35,6 +40,7 @@ const routes: Routes = [
   {
     path: "home",
     component: BasicLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: "",

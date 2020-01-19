@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,14 +11,18 @@ export class NavigationComponent {
     public IsLoggedIn: boolean;
     public IsAdmin: boolean;
 
-    constructor (private router: Router){}
+    constructor (
+        private router: Router,
+        private authService: AuthService
+    ){}
 
     ngOnInit() {
-        const token = sessionStorage.getItem('token');
-        this.IsLoggedIn = !!token;
-
+        const currentUser = this.authService.currentUserValue;
+        const currentRole = sessionStorage.getItem('userRole');
+        this.IsLoggedIn = !!currentUser;
+        
         if (this.IsLoggedIn){
-            if (sessionStorage.getItem('userRole') == "Admin")
+            if (currentRole == "Admin")
             {
                 this.IsAdmin = true;
             }
@@ -29,8 +34,7 @@ export class NavigationComponent {
     }
 
     logout() {
-        sessionStorage.clear();
-        this.IsLoggedIn = false;
-        this.router.navigate(["login"]);
+        this.authService.logout();
+        this.router.navigate(['login']);
     }
 }
