@@ -5,3 +5,11 @@ export interface UserModel {
     Role: string;
     UserId: number;
 }
+
+export interface RegisterUserModel {
+    Email: string;
+    FirstName: string;
+    LastName: string;
+    Password: string;
+    ConfirmPassword: number;
+}
