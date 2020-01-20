@@ -7,9 +7,9 @@ export interface UserModel {
 }
 
 export interface RegisterUserModel {
-    Email: string;
-    FirstName: string;
-    LastName: string;
-    Password: string;
-    ConfirmPassword: number;
+    Email ? : string;
+    FirstName ? : string;
+    LastName ? : string;
+    Password ? : string;
+    PasswordConfirmation ? : string;
 }

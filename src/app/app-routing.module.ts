@@ -34,7 +34,7 @@ const routes: Routes = [
       {
         path: "signup",
         component: SignUpComponent,
-        //canActivate: [LoginGuard]
+        canActivate: [LoginGuard]
       }
     ]
   },
