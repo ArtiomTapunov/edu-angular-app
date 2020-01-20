@@ -11,11 +11,6 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   public isLoading: boolean = false;
-  public firstName: string;
-  public lastName: string;
-  public email: string;
-  public password: string;
-  public confirmPassword: string;
   public registerUserModel: RegisterUserModel;
   public user: UserModel;
 
@@ -25,10 +20,18 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.registerUserModel = {};
   }
 
   signUp() {
-    console.log(this.email);
+    this.authService.register(this.registerUserModel).subscribe(x => {
+      this.user = x.Data;
+
+      //Processing user logic can be added here
+      //console.log(this.user);
+
+      this.router.navigate(["login"]);
+  })
   }
 
 }

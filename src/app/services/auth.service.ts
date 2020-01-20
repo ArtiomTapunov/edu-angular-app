@@ -1,8 +1,8 @@
-import { UserModel } from 'src/app/models/user.model';
+import { UserModel, RegisterUserModel } from 'src/app/models/user.model';
 import { AuthResultModel } from './../models/authresult.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -42,8 +42,18 @@ export class AuthService {
     }));
   }
 
+  register(user: RegisterUserModel) {
+    const registerUrl = "http://demo.oybek.com/api/User/Register";
+
+    if (!user){
+      throwError("The model cannot be null");
+    }
+
+    return this.http.post<any>(registerUrl, user);
+  }
+
   logout() {
     sessionStorage.clear();
     this.currentUserSubject.next(null);
-}
+  }
 }
