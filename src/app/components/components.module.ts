@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
+import { UserCreateComponent } from './users/usercreate.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { SignUpComponent } from './signup/signup.component';
         LoginComponent,
         UsersComponent,
         HomeComponent,
-        SignUpComponent
+        SignUpComponent,
+        UserCreateComponent,
     ],
     imports: [
         BrowserModule,

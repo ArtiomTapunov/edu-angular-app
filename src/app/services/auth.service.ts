@@ -1,4 +1,5 @@
-import { UserModel, RegisterUserModel } from 'src/app/models/user.model';
+import { UserExtendedModel } from './../models/userextended.model';
+import { UserModel} from 'src/app/models/user.model';
 import { AuthResultModel } from './../models/authresult.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
@@ -42,7 +43,7 @@ export class AuthService {
     }));
   }
 
-  register(user: RegisterUserModel) {
+  register(user: UserExtendedModel) {
     const registerUrl = "http://demo.oybek.com/api/User/Register";
 
     if (!user){

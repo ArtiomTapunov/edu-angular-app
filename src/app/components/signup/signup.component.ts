@@ -1,8 +1,8 @@
-import { RegisterUserModel } from './../../models/user.model';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { UserExtendedModel } from 'src/app/models/userextended.model';
 
 @Component({
   selector: 'signup',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   public isLoading: boolean = false;
-  public registerUserModel: RegisterUserModel;
+  public registerUserModel: UserExtendedModel;
   public user: UserModel;
 
   constructor(
