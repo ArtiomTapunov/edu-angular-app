@@ -1,6 +1,6 @@
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PageInfo } from 'src/app/models/common.model';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { UserModel } from 'src/app/models/user.model';
@@ -44,8 +44,8 @@ export class UsersComponent implements OnInit {
     this.pager = this.paginationService.getPager(this.pageInfo.TotalPages, this.pageInfo.Pages, page, 30);
   }
 
-  updateUser(user: UserModel) {
-    this.router.navigate(['create']);
+  updateUser(userId: number) {
+    this.router.navigate(['users/create', this.pager.currentPage, userId]);
   }
 
   deleteUser(userId: number) {

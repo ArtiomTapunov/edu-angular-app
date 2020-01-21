@@ -1,6 +1,7 @@
+import { UserModel } from './../../models/user.model';
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'usercreate',
@@ -13,13 +14,29 @@ export class UserCreateComponent implements OnInit {
   public Email: string;
   public Password: string;
   public IsAdmin: boolean;
+  public UserId: string;
 
   constructor(
     private router: Router,
-    private userManagementService: UserManagementService
+    private userManagementService: UserManagementService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.UserId = this.activatedRoute.snapshot.paramMap.get('id');
+    const pageNumber = this.activatedRoute.snapshot.paramMap.get('page');
+
+    if (this.UserId)
+    {
+      this.userManagementService.listUsers(parseInt(pageNumber)).subscribe(x => {
+        let currentUser: UserModel = x.Data.find(user => user.UserId.toString() === this.UserId)//forEach(user => {user.UserId.toString() == this.UserId});
+
+        this.FirstName = currentUser.FirstName;
+        this.LastName = currentUser.LastName;
+        this.Email = currentUser.Email;
+        this.IsAdmin = currentUser.Role == "Admin" ? true : false;
+      })
+    }
   }
 
   create() {

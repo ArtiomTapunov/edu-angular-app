@@ -10,7 +10,7 @@
             {{ user.FirstName }}
             {{ user.LastName }}
             {{ user.Email }}
-            <a class="page-link" (click)="updateUser(user)">Update User</a>
+            <a class="page-link" (click)="updateUser(user.UserId)">Update User</a>
             <a class="page-link" (click)="deleteUser(user.UserId)">Delete User</a>
         </div>
         </div>

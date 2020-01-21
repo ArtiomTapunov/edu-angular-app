@@ -50,6 +50,10 @@ const routes: Routes = [
       },
       {
         path: "create",
+        component: UserCreateComponent,
+      },
+      {
+        path: "create/:page/:id",
         component: UserCreateComponent
       }
     ]
