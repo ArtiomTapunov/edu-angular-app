@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApplyTokenInterceptor } from './helpers/applytoken.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorInterceptor } from './helpers/httperror.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApplyTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     }
   ],
