@@ -6,7 +6,7 @@ import { UserModel } from 'src/app/models/user.model';
 @Component({
     selector: "logincomponent",
     templateUrl: "./login.component.html",
-    styleUrls: ["./login.component.scss"]
+    styleUrls: ["./login.component.scss", "../../share/form-styles.scss"]
 })
 
 export class LoginComponent {

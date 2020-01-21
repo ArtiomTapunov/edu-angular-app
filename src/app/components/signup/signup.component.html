@@ -1,0 +1,38 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <h1>Sign Up</h1>
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <div class="form-group" *ngIf="!isLoading">
+            <input type="text" id="first-name" class="fadeIn second" name="first-name" placeholder="First Name" [(ngModel)]="registerUserModel.FirstName">
+        </div>
+        <div class="form-group" *ngIf="!isLoading">
+            <input type="text" id="last-name" class="fadeIn third" name="last-name" placeholder="Last Name" [(ngModel)]="registerUserModel.LastName">
+        </div>
+        <div class="form-group" *ngIf="!isLoading">
+            <input type="text" id="email" class="fadeIn fourth" name="email" placeholder="Email" [(ngModel)]="registerUserModel.Email">
+        </div>
+        <div class="form-group" *ngIf="!isLoading">
+            <input type="text" id="password" class="fadeIn fifth" name="password" placeholder="Password" [(ngModel)]="registerUserModel.Password">
+        </div>
+        <div class="form-group" *ngIf="!isLoading">
+            <input type="text" id="password-confirm" class="fadeIn sixth" name="password-confirm" placeholder="Confirm Password" [(ngModel)]="registerUserModel.PasswordConfirmation">
+        </div>
+        <div class="form-group" *ngIf="!isLoading"> 
+            <input type="submit" class="fadeIn seventh" value="Sign Up" (click)="signUp($event)">
+        </div>      
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" routerLink="/login">Sign In if you have an account</a>
+      </div>
+  
+    </div>
+</div>

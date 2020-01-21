@@ -7,6 +7,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
+import { SignUpComponent } from './components/signup/signup.component';
+import { UserCreateComponent } from './components/users/usercreate.component';
 
 
 const routes: Routes = [
@@ -27,6 +29,17 @@ const routes: Routes = [
     ]
   },
   {
+    path: "",
+    component: BasicLayoutComponent,
+    children: [
+      {
+        path: "signup",
+        component: SignUpComponent,
+        canActivate: [LoginGuard]
+      }
+    ]
+  },
+  {
     path: "users",
     component: BasicLayoutComponent,
     canActivate: [AuthGuard, AdminGuard],
@@ -34,6 +47,14 @@ const routes: Routes = [
       {
         path: "",
         component: UsersComponent
+      },
+      {
+        path: "create",
+        component: UserCreateComponent,
+      },
+      {
+        path: "create/:page/:id",
+        component: UserCreateComponent
       }
     ]
   },
