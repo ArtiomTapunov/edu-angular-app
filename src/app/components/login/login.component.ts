@@ -14,6 +14,8 @@ export class LoginComponent {
     public email: string;
     public password: string;
     public user: UserModel;
+    public errorMessage: string;
+    public isError: boolean;
 
     constructor (
         private authService: AuthService,
@@ -21,14 +23,28 @@ export class LoginComponent {
 
     }
 
-    login() {
-        this.authService.authenticate(this.email, this.password).subscribe(x => {
-            this.user = x.Data;
-    
-            sessionStorage.setItem("user", JSON.stringify(this.user));
-            sessionStorage.setItem("userRole", this.user.Role);
+    ngOnInit() {
+        this.isError = false;
+    }
 
-            this.router.navigate(["home"]);
-        })
+    login() {
+        this.isError = false;
+        this.authService.authenticate(this.email, this.password).subscribe(
+            x => {
+                this.user = x.Data;
+        
+                sessionStorage.setItem("user", JSON.stringify(this.user));
+                sessionStorage.setItem("userRole", this.user.Role);
+
+                this.router.navigate(["home"]);
+            },
+            (error: string) => {
+                if(error)
+                {
+                  this.isError = true;
+                  this.errorMessage = error;
+                }
+            }
+        )
     }
 }

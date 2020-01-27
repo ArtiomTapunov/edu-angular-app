@@ -28,6 +28,7 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp() {
+    this.isError = false;
     this.authService.register(this.registerUserModel).subscribe(
       x => {
       this.user = x.Data;
@@ -37,7 +38,7 @@ export class SignUpComponent implements OnInit {
 
       this.router.navigate(["login"]);
       },
-      (error: any) => {
+      (error: string) => {
         if(error)
         {
           this.isError = true;

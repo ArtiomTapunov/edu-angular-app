@@ -46,9 +46,9 @@ export class AuthService {
   register(user: UserExtendedModel) {
     const registerUrl = "http://demo.oybek.com/api/User/Register";
 
-    if (!user){
-      throwError("The model cannot be null");
-    }
+    // if (!user){
+    //   throwError("The model cannot be null");
+    // }
 
     return this.http.post<any>(registerUrl, user);
   }
