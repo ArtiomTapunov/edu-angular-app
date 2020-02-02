@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthService {
   }
 
   authenticate(email: string, password: string) {
-    const requestUrl = "http://demo.oybek.com/oauth/token";
+    const requestUrl = `${environment.authUrl}/token`;
     const payload = `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&grant_type=password`;
 
     return this.http.post<AuthResultModel>(requestUrl, payload, {
@@ -34,7 +35,7 @@ export class AuthService {
     }).pipe(concatMap(answer => {
       let token = answer.access_token;
       sessionStorage.setItem("token", token);
-      let getDetailsUrl = "http://demo.oybek.com/api/User/Details";
+      let getDetailsUrl = `${environment.apiUrl}/User/Details`;
 
       return this.http.get<any>(getDetailsUrl).pipe(tap(user => {
         this.currentUserSubject.next(user);
@@ -44,7 +45,7 @@ export class AuthService {
   }
 
   register(user: UserExtendedModel) {
-    const registerUrl = "http://demo.oybek.com/api/User/Register";
+    const registerUrl = `${environment.apiUrl}/User/Register`;
 
     // if (!user){
     //   throwError("The model cannot be null");

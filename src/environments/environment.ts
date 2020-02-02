@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://demo.oybek.com/api',
+  authUrl: 'http://demo.oybek.com/oauth'
 };
 
 /*
