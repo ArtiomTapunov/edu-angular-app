@@ -9,6 +9,7 @@ import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
 import { UserCreateComponent } from './users/usercreate.component';
+import { AlertComponent } from './notifications/alert.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { UserCreateComponent } from './users/usercreate.component';
         HomeComponent,
         SignUpComponent,
         UserCreateComponent,
+        AlertComponent,
     ],
     imports: [
         BrowserModule,
