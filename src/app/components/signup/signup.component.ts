@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
@@ -14,21 +15,20 @@ export class SignUpComponent implements OnInit {
   public isLoading: boolean = false;
   public registerUserModel: UserExtendedModel;
   public user: UserModel;
-  public errorMessage: string;
-  public isError: boolean;
 
   constructor(
     private authService: AuthService,
+    private alertService: AlertService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.registerUserModel = {};
-    this.isError = false;
   }
 
   signUp() {
-    this.isError = false;
+    this.alertService.clear();
+
     this.authService.register(this.registerUserModel).subscribe(
       x => {
       this.user = x.Data;
@@ -39,11 +39,7 @@ export class SignUpComponent implements OnInit {
       this.router.navigate(["login"]);
       },
       (error: string) => {
-        if(error)
-        {
-          this.isError = true;
-          this.errorMessage = error;
-        }
+        this.alertService.error(error);
       }
     )
   }
