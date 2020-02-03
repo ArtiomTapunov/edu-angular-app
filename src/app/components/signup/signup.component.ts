@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
       },
       (error: string) => {
         this.alertService.error(error);
+        this.alertService.timeoutClear();
       }
     )
   }
