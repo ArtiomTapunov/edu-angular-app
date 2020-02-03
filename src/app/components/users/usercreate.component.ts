@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { UserModel } from './../../models/user.model';
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,6 +20,7 @@ export class UserCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private userManagementService: UserManagementService,
+    private alertService: AlertService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -28,14 +30,27 @@ export class UserCreateComponent implements OnInit {
 
     if (this.UserId)
     {
-      this.userManagementService.listUsers(parseInt(pageNumber)).subscribe(x => {
-        let currentUser: UserModel = x.Data.find(user => user.UserId.toString() === this.UserId)//forEach(user => {user.UserId.toString() == this.UserId});
+      this.userManagementService.listUsers(parseInt(pageNumber)).subscribe(
+        x => {
+          let currentUser: UserModel = x.Data.find(user => user.UserId.toString() === this.UserId)
 
-        this.FirstName = currentUser.FirstName;
-        this.LastName = currentUser.LastName;
-        this.Email = currentUser.Email;
-        this.IsAdmin = currentUser.Role == "Admin" ? true : false;
-      })
+          if (currentUser) {
+            this.FirstName = currentUser.FirstName;
+            this.LastName = currentUser.LastName;
+            this.Email = currentUser.Email;
+            this.IsAdmin = currentUser.Role == "Admin" ? true : false;
+          }
+          else {
+            this.alertService.error(`The user #${this.UserId} doesn't exist on the ${pageNumber} page.`, true);
+            this.alertService.timeoutClear();
+            this.router.navigate(['users']);
+          }
+        },
+        error => {
+          this.alertService.error(error);
+          this.alertService.timeoutClear();
+        }
+      )
     }
   }
 
@@ -46,8 +61,14 @@ export class UserCreateComponent implements OnInit {
       Email: this.Email,
       Password: this.Password,
       Role: this.IsAdmin ? "Admin" : "User"
-    }).subscribe(x => {
-      this.router.navigate(['users']);
-    })
+    }).subscribe(
+      x => {
+        this.router.navigate(['users']);
+      },
+      error => {
+        this.alertService.error(error);
+        this.alertService.timeoutClear();
+      }
+    )
   }
 }

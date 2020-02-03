@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,15 +20,22 @@ export class UsersComponent implements OnInit {
   constructor(
     private userManagementService: UserManagementService,
     private paginationService: PaginationService,
+    private alertService: AlertService,
     private router: Router
   ) { this.pageInfo = new PageInfo() }
 
   ngOnInit() {
-    this.userManagementService.listUsers(this.initialPage).subscribe(x => {
-      this.users = x.Data;
-      this.pageInfo = x.PageInfo;
-      this.setPage(this.initialPage);
-    })
+    this.userManagementService.listUsers(this.initialPage).subscribe(
+      x => {
+        this.users = x.Data;
+        this.pageInfo = x.PageInfo;
+        this.setPage(this.initialPage);
+      },
+      error => {
+        this.alertService.error(error);
+        this.alertService.timeoutClear();
+      }
+    )
   }
 
   setPage(page: number) {
@@ -35,10 +43,16 @@ export class UsersComponent implements OnInit {
       return;
     }
 
-    this.userManagementService.listUsers(page).subscribe(x => {
-      this.users = x.Data;
-      this.pageInfo = x.PageInfo;
-    })
+    this.userManagementService.listUsers(page).subscribe(
+      x => {
+        this.users = x.Data;
+        this.pageInfo = x.PageInfo;
+      },
+      error => {
+        this.alertService.error(error);
+        this.alertService.timeoutClear();
+      }
+    )
 
     // get pager object from service
     this.pager = this.paginationService.getPager(this.pageInfo.TotalPages, this.pageInfo.Pages, page, 30);
@@ -49,13 +63,19 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(userId: number) {
-    this.userManagementService.deleteUser(userId).subscribe(() => {
-      const userToDelete = this.users.find(x => x.UserId == userId);
-      if (userToDelete) {
-        const index = this.users.indexOf(userToDelete);
-        this.users.splice(index, 1);
+    this.userManagementService.deleteUser(userId).subscribe(
+      () => {
+        const userToDelete = this.users.find(x => x.UserId == userId);
+        if (userToDelete) {
+          const index = this.users.indexOf(userToDelete);
+          this.users.splice(index, 1);
+        }
+        this.router.navigate(['users']);
+      },
+      error => {
+        this.alertService.error(error);
+        this.alertService.timeoutClear();
       }
-      this.router.navigate(['users']);
-    });
+    );
   }
 }
