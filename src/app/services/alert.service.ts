@@ -48,7 +48,7 @@ export class AlertService {
     this.subject.next();
   }
 
-  timeoutClear(timeout: number = 3000) {
+  timeoutClear(timeout: number = 5000) {
     setTimeout( () => {
           this.clear();
         }, timeout);
