@@ -5,13 +5,14 @@ import { ListViewModel } from '../models/common.model';
 import { UserModel } from '../models/user.model';
 import { UserExtendedModel } from '../models/userextended.model';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserManagementService {
-    private managementUrl: string = "http://demo.oybek.com/api/UserManagement";
+    private managementUrl: string = `${environment.apiUrl}/UserManagement`;
 
     constructor(private http: HttpClient){}
 
