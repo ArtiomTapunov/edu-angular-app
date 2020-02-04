@@ -1,3 +1,4 @@
+import { LoaderComponent } from './loader/loader.component';
 import { LoginComponent } from './login/login.component';
 import { BasicLayoutComponent } from './layouts/basiclayout.component';
 import { NavigationComponent } from './layouts/navigation.component';
@@ -10,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
 import { UserCreateComponent } from './users/usercreate.component';
 import { AlertComponent } from './notifications/alert.component';
+import {MatProgressSpinnerModule, MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -21,11 +23,13 @@ import { AlertComponent } from './notifications/alert.component';
         SignUpComponent,
         UserCreateComponent,
         AlertComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,
         RouterModule,
-        FormsModule
+        FormsModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         NavigationComponent,
