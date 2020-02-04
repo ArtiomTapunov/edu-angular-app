@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss', '../../share/form-styles.scss']
+  styleUrls: ['./signup.component.scss', '../../shared/form-styles.scss']
 })
 export class SignUpComponent implements OnInit {
   public isLoading: boolean = false;
