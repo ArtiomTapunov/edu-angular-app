@@ -4,14 +4,14 @@ import { BasicLayoutComponent } from './layouts/basiclayout.component';
 import { NavigationComponent } from './layouts/navigation.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from '@angular/core';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
 import { UserCreateComponent } from './users/usercreate.component';
 import { AlertComponent } from './notifications/alert.component';
-import {MatProgressSpinnerModule, MatProgressSpinner} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -29,12 +29,16 @@ import {MatProgressSpinnerModule, MatProgressSpinner} from '@angular/material/pr
         BrowserModule,
         RouterModule,
         FormsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
     exports: [
         NavigationComponent,
         BasicLayoutComponent,
-        LoginComponent
+        LoginComponent,
+        ReactiveFormsModule,
+        FormsModule
     ]
 })
 
