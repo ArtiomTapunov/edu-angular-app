@@ -12,7 +12,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class LoginComponent {
-    public password: string;
     public user: UserModel;
     public loginForm: FormGroup;
     public submitted = false;

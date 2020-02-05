@@ -5,6 +5,8 @@ import { UserModel } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { UserExtendedModel } from 'src/app/models/userextended.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MustMatch } from 'src/app/helpers/must-match.validator';
 
 @Component({
   selector: 'signup',
@@ -12,24 +14,43 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./signup.component.scss', '../../shared/form-styles.scss']
 })
 export class SignUpComponent implements OnInit {
-  public isLoading: boolean = false;
+
   public registerUserModel: UserExtendedModel;
   public user: UserModel;
+  public registerForm: FormGroup;
+  public submitted = false;
 
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
+    private formBuilder: FormBuilder,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.registerUserModel = {};
+
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
   }
+  get field() { return this.registerForm.controls }
 
   signUp() {
+    this.submitted = true;
     this.alertService.clear();
 
-    this.authService.register(this.registerUserModel).subscribe(
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    this.authService.register(this.registerForm.controls).subscribe(
       x => {
       this.user = x.Data;
 
