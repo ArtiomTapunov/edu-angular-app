@@ -44,7 +44,7 @@ export class AuthService {
     }));
   }
 
-  register(user: any) {
+  register(user: UserExtendedModel) {
     const registerUrl = `${environment.apiUrl}/User/Register`;
 
     // if (!user){

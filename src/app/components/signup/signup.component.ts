@@ -15,7 +15,7 @@ import { MustMatch } from 'src/app/helpers/must-match.validator';
 })
 export class SignUpComponent implements OnInit {
 
-  public registerUserModel: UserExtendedModel;
+  public registerUserModel: UserExtendedModel = {};
   public user: UserModel;
   public registerForm: FormGroup;
   public submitted = false;
@@ -28,8 +28,6 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.registerUserModel = {};
-
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -50,7 +48,13 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    this.authService.register(this.registerForm.controls).subscribe(
+    this.registerUserModel.FirstName = this.registerForm.controls.firstName.value;
+    this.registerUserModel.LastName = this.registerForm.controls.lastName.value;
+    this.registerUserModel.Email = this.registerForm.controls.email.value;
+    this.registerUserModel.Password = this.registerForm.controls.password.value;
+    this.registerUserModel.PasswordConfirmation = this.registerForm.controls.confirmPassword.value;
+
+    this.authService.register(this.registerUserModel).subscribe(
       x => {
       this.user = x.Data;
 
