@@ -49,7 +49,8 @@
               [ngClass]="{ 'is-invalid': submitted && field.confirmPassword.errors }">
             <div *ngIf="submitted && field.confirmPassword.errors" class="invalid-feedback">
               <div *ngIf="field.confirmPassword.errors.required">Password is required</div>
-              <div *ngIf="field.confirmPassword.errors.MustMatch">Passwords must match</div>
+              <div *ngIf="field.confirmPassword.errors.minlength">Password must be at least 6 characters</div>
+              <div *ngIf="field.confirmPassword.errors.mustMatch">Passwords must match</div>
             </div>
         </div>
         <div class="form-group" > 
