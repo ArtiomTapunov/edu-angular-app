@@ -60,7 +60,8 @@ export class SignUpComponent implements OnInit {
 
       //Processing user logic can be added here
       //console.log(this.user);
-
+      this.alertService.success(`Registration has been completed successfully.`, true);
+      this.alertService.timeoutClear();
       this.router.navigate(["login"]);
       },
       (error: string) => {
