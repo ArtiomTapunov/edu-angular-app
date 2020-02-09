@@ -27,6 +27,7 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
+      userId: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -45,6 +46,7 @@ export class UserCreateComponent implements OnInit {
 
           if (currentUser) {
             this.userForm.patchValue ({
+              userId: this.UserId,
               firstName: currentUser.FirstName,
               lastName: currentUser.LastName,
               email: currentUser.Email,       
@@ -76,6 +78,7 @@ export class UserCreateComponent implements OnInit {
     }
 
     this.userManagementService.createUser({
+      UserId: this.userForm.controls.userId.value,
       FirstName: this.userForm.controls.firstName.value,
       LastName: this.userForm.controls.lastName.value,
       Email: this.userForm.controls.email.value,
@@ -83,7 +86,7 @@ export class UserCreateComponent implements OnInit {
       Role: this.userForm.controls.isAdmin.value ? "Admin" : "User"
     }).subscribe(
       x => {
-        this.alertService.success(`The user #${this.UserId} has been updated successfully.`, true);
+        this.alertService.success(`The user #${this.UserId} has been updated/created successfully.`, true);
         this.alertService.timeoutClear();
         this.router.navigate(['users']);
       },
