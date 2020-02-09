@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="bs-component">
-                <form [formGroup]="registerForm" (ngSubmit)="create()">
+                <form [formGroup]="userForm" (ngSubmit)="create()">
                     <fieldset>
                         <legend>User Creation</legend>
                         <div class="form-group">
@@ -39,14 +39,14 @@
                                 <div *ngIf="field.password.errors.minlength">Password must be at least 6 characters</div>
                             </div>
                         </div>   
-                        <div class="form-group">
-                            <label for="is-admin">Is admin</label>
-                            <input type="checkbox" formControlName="isAdmin" name="is-admin">
+                        <div class="form-group form-check">
+                            <input type="checkbox" formControlName="isAdmin" name="is-admin" class="form-check-input">
+                            <label for="is-admin" class="form-check-label">Is admin</label>
                         </div>  
+                        <div class="form-group">
+                            <button class="btn btn-primary mr-1">Submit</button>
+                        </div>
                     </fieldset>
-                    <div class="row">
-                        <a class="btn btn-success">Submit</a>
-                    </div>
                 </form>
             </div>
         </div>
