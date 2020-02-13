@@ -15,7 +15,6 @@ import { MustMatch } from 'src/app/helpers/must-match.validator';
 })
 export class SignUpComponent implements OnInit {
 
-  public registerUserModel: UserExtendedModel = {};
   public user: UserModel;
   public registerForm: FormGroup;
   public submitted = false;
@@ -48,21 +47,21 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    this.registerUserModel.FirstName = this.registerForm.controls.firstName.value;
-    this.registerUserModel.LastName = this.registerForm.controls.lastName.value;
-    this.registerUserModel.Email = this.registerForm.controls.email.value;
-    this.registerUserModel.Password = this.registerForm.controls.password.value;
-    this.registerUserModel.PasswordConfirmation = this.registerForm.controls.confirmPassword.value;
+    this.authService.register({
+      UserId: this.registerForm.controls.userId.value,
+      FirstName: this.registerForm.controls.firstName.value,
+      LastName: this.registerForm.controls.lastName.value,
+      Email: this.registerForm.controls.email.value,
+      Password: this.registerForm.controls.password.value,
+      PasswordConfirmation: this.registerForm.controls.confirmPassword.value,
+      Role: this.registerForm.controls.isAdmin.value ? "Admin" : "User"
+    }).subscribe(
+      user => {
+        this.user = user;
 
-    this.authService.register(this.registerUserModel).subscribe(
-      x => {
-      this.user = x.Data;
-
-      //Processing user logic can be added here
-      //console.log(this.user);
-      this.alertService.success(`Registration has been completed successfully.`, true);
-      this.alertService.timeoutClear();
-      this.router.navigate(["login"]);
+        this.alertService.success(`Registration has been completed successfully.`, true);
+        this.alertService.timeoutClear();
+        this.router.navigate(["login"]);
       },
       (error: string) => {
         this.alertService.error(error);
