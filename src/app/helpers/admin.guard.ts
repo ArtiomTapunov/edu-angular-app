@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate {
             }
         }
 
-        this.router.navigate(['home']);
+        this.router.navigate(['forbidden']);
         return false;
     }
 }
