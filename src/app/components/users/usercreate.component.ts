@@ -4,6 +4,7 @@ import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MustMatch } from 'src/app/helpers/must-match.validator';
 
 @Component({
   selector: 'usercreate',
@@ -32,7 +33,10 @@ export class UserCreateComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       isAdmin: ['']
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     });
 
     this.UserId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -83,6 +87,7 @@ export class UserCreateComponent implements OnInit {
       LastName: this.userForm.controls.lastName.value,
       Email: this.userForm.controls.email.value,
       Password: this.userForm.controls.password.value,
+      PasswordConfirmation: this.userForm.controls.confirmPassword.value,
       Role: this.userForm.controls.isAdmin.value ? "Admin" : "User"
     }).subscribe(
       x => {
