@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { SignUpComponent } from './components/signup/signup.component';
 import { UserCreateComponent } from './components/users/usercreate.component';
+import { ForbiddenComponent } from './components/notifications/forbidden.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,11 @@ const routes: Routes = [
         path: "signup",
         component: SignUpComponent,
         canActivate: [LoginGuard]
-      }
+      },
+      {
+        path: "forbidden",
+        component: ForbiddenComponent
+      },
     ]
   },
   {

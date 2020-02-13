@@ -12,6 +12,7 @@ import { SignUpComponent } from './signup/signup.component';
 import { UserCreateComponent } from './users/usercreate.component';
 import { AlertComponent } from './notifications/alert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ForbiddenComponent } from './notifications/forbidden.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         SignUpComponent,
         UserCreateComponent,
         AlertComponent,
-        LoaderComponent
+        LoaderComponent,
+        ForbiddenComponent
     ],
     imports: [
         BrowserModule,
