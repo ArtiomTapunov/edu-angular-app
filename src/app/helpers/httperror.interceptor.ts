@@ -2,9 +2,13 @@ import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, Http
 import { Observable, throwError } from 'rxjs'; 
 import { retry, catchError } from 'rxjs/operators';    
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
-export class HttpErrorInterceptor implements HttpInterceptor {      
+export class HttpErrorInterceptor implements HttpInterceptor { 
+
+    constructor(private router: Router){}     
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
         return next.handle(request).pipe(  
           retry(1), 
@@ -17,6 +21,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               errorMessage = `Error: ${error.error.message}`;  
             } else {
               // server-side error
+
+              switch (error.status) {
+                case 403: this.router.navigate(["forbidden"]);
+              }
+
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;   
             }
    
