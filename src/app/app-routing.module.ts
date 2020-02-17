@@ -19,26 +19,6 @@ const routes: Routes = [
     redirectTo: "login"
   },
   {
-    path: "",
-    component: BasicLayoutComponent,
-    children: [
-      {
-        path: "login",
-        component: LoginComponent,
-        canActivate: [LoginGuard]
-      },
-      {
-        path: "signup",
-        component: SignUpComponent,
-        canActivate: [LoginGuard]
-      },
-      {
-        path: "forbidden",
-        component: ForbiddenComponent
-      },
-    ]
-  },
-  {
     path: "users",
     component: BasicLayoutComponent,
     canActivate: [AuthGuard, AdminGuard],
@@ -66,6 +46,27 @@ const routes: Routes = [
         path: "",
         component: HomeComponent
       }
+    ]
+  },
+  {
+    path: "",
+    component: BasicLayoutComponent,
+    children: [
+      {
+        path: "login",
+        component: LoginComponent,
+        canActivate: [LoginGuard]
+      },
+      {
+        path: "signup",
+        component: SignUpComponent,
+        canActivate: [LoginGuard]
+      },
+      {
+        path: "forbidden",
+        component: ForbiddenComponent
+      },
+      { path: '**', component: ForbiddenComponent }
     ]
   }
 ];
