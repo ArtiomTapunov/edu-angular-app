@@ -3,8 +3,6 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { UserExtendedModel } from 'src/app/models/userextended.model';
-import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/helpers/must-match.validator';
 
@@ -48,13 +46,13 @@ export class SignUpComponent implements OnInit {
     }
 
     this.authService.register({
-      UserId: this.registerForm.controls.userId.value,
+      UserId: null,
       FirstName: this.registerForm.controls.firstName.value,
       LastName: this.registerForm.controls.lastName.value,
       Email: this.registerForm.controls.email.value,
       Password: this.registerForm.controls.password.value,
       PasswordConfirmation: this.registerForm.controls.confirmPassword.value,
-      Role: this.registerForm.controls.isAdmin.value ? "Admin" : "User"
+      Role: "User"
     }).subscribe(
       user => {
         this.user = user;
