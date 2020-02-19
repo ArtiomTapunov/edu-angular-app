@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: "logincomponent",
@@ -11,28 +12,38 @@ import { UserModel } from 'src/app/models/user.model';
 })
 
 export class LoginComponent {
-    public isLoading: boolean = false;
-    public email: string;
-    public password: string;
     public user: UserModel;
+    public loginForm: FormGroup;
+    public submitted = false;
 
     constructor(
         private authService: AuthService,
         private alertService: AlertService,
+        private formBuilder: FormBuilder,
         private router: Router) {
 
     }
 
     ngOnInit() {
-
+        this.loginForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+            password: ['', [Validators.required, Validators.minLength(6)]]
+        });
     }
 
+    get field() { return this.loginForm.controls }
+
     login() {
+        this.submitted = true;
         this.alertService.clear();
 
-        this.authService.authenticate(this.email, this.password).subscribe(
-            x => {
-                this.user = x.Data;
+        if (this.loginForm.invalid) {
+            return;
+        }
+
+        this.authService.authenticate(this.field.email.value, this.field.password.value).subscribe(
+            user => {
+                this.user = user;
 
                 sessionStorage.setItem("user", JSON.stringify(this.user));
                 sessionStorage.setItem("userRole", this.user.Role);

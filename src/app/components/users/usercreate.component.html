@@ -2,33 +2,61 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="bs-component">
-                <form>
+                <form [formGroup]="userForm" (ngSubmit)="create()">
                     <fieldset>
                         <legend>User Creation</legend>
                         <div class="form-group">
                             <label for="first-name">First name</label>
-                            <input type="text" class="form-control" name="first-name" [(ngModel)]="FirstName">
+                            <input type="text" formControlName="firstName" id="first-name" class="form-control" name="first-name"
+                            [ngClass]="{ 'is-invalid': submitted && field.firstName.errors }">
+                            <div *ngIf="submitted && field.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="field.firstName.errors.required">First Name is required</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="last-name">Last name</label>
-                            <input type="text" class="form-control" name="last-name" [(ngModel)]="LastName">
+                            <input type="text" formControlName="lastName" id="last-name" class="form-control" name="last-name"
+                            [ngClass]="{ 'is-invalid': submitted && field.lastName.errors }">
+                            <div *ngIf="submitted && field.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="field.lastName.errors.required">First Name is required</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" [(ngModel)]="Email">
+                            <input type="text" formControlName="email" id="email" class="form-control" name="email"
+                            [ngClass]="{ 'is-invalid': submitted && field.email.errors }">
+                            <div *ngIf="submitted && field.email.errors" class="invalid-feedback">
+                                <div *ngIf="field.email.errors.required">Email is required</div>
+                                <div *ngIf="field.email.errors.pattern">Email must be a valid email address</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="text" class="form-control" name="password" [(ngModel)]="Password">
+                            <input type="text" formControlName="password" id="password" class="form-control" name="password"
+                                [ngClass]="{ 'is-invalid': submitted && field.password.errors }">
+                            <div *ngIf="submitted && field.password.errors" class="invalid-feedback">
+                                <div *ngIf="field.password.errors.required">Password is required</div>
+                                <div *ngIf="field.password.errors.minlength">Password must be at least 6 characters</div>
+                            </div>
                         </div>   
-                        <div class="form-group">
-                            <label for="is-admin">Is admin</label>
-                            <input type="checkbox" name="is-admin" [(ngModel)]="IsAdmin">
+                        <div class="form-group" >
+                            <label for="password-confirm">Confirm password</label>
+                            <input type="text" formControlName="confirmPassword" id="password-confirm" class="form-control" name="password-confirm"
+                                [ngClass]="{ 'is-invalid': submitted && field.confirmPassword.errors }">
+                            <div *ngIf="submitted && field.confirmPassword.errors" class="invalid-feedback">
+                                <div *ngIf="field.confirmPassword.errors.required">Password is required</div>
+                                <div *ngIf="field.confirmPassword.errors.minlength">Password must be at least 6 characters</div>
+                                <div *ngIf="field.confirmPassword.errors.mustMatch">Passwords must match</div>
+                            </div>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" formControlName="isAdmin" name="is-admin" class="form-check-input">
+                            <label for="is-admin" class="form-check-label">Is admin</label>
                         </div>  
+                        <div class="form-group">
+                            <button class="btn btn-primary mr-1">Submit</button>
+                        </div>
                     </fieldset>
-                    <div class="row">
-                        <a class="btn btn-success" (click)="create($event)">Submit</a>
-                    </div>
                 </form>
             </div>
         </div>

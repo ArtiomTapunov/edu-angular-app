@@ -9,6 +9,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { SignUpComponent } from './components/signup/signup.component';
 import { UserCreateComponent } from './components/users/usercreate.component';
+import { ForbiddenComponent } from './components/notifications/forbidden.component';
+import { NotFoundComponent } from './components/notifications/not-found.component';
 
 
 const routes: Routes = [
@@ -16,22 +18,6 @@ const routes: Routes = [
     path: "",
     pathMatch: "full",
     redirectTo: "login"
-  },
-  {
-    path: "",
-    component: BasicLayoutComponent,
-    children: [
-      {
-        path: "login",
-        component: LoginComponent,
-        canActivate: [LoginGuard]
-      },
-      {
-        path: "signup",
-        component: SignUpComponent,
-        canActivate: [LoginGuard]
-      }
-    ]
   },
   {
     path: "users",
@@ -61,6 +47,31 @@ const routes: Routes = [
         path: "",
         component: HomeComponent
       }
+    ]
+  },
+  {
+    path: "",
+    component: BasicLayoutComponent,
+    children: [
+      {
+        path: "login",
+        component: LoginComponent,
+        canActivate: [LoginGuard]
+      },
+      {
+        path: "signup",
+        component: SignUpComponent,
+        canActivate: [LoginGuard]
+      },
+      {
+        path: "forbidden",
+        component: ForbiddenComponent
+      },
+      {
+        path: "notfound",
+        component: NotFoundComponent
+      },
+      { path: '**', component: NotFoundComponent }
     ]
   }
 ];
