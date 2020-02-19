@@ -10,6 +10,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { SignUpComponent } from './components/signup/signup.component';
 import { UserCreateComponent } from './components/users/usercreate.component';
 import { ForbiddenComponent } from './components/notifications/forbidden.component';
+import { NotFoundComponent } from './components/notifications/not-found.component';
 
 
 const routes: Routes = [
@@ -66,7 +67,11 @@ const routes: Routes = [
         path: "forbidden",
         component: ForbiddenComponent
       },
-      { path: '**', component: ForbiddenComponent }
+      {
+        path: "notfound",
+        component: NotFoundComponent
+      },
+      { path: '**', component: NotFoundComponent }
     ]
   }
 ];

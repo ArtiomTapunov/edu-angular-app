@@ -13,6 +13,7 @@ import { UserCreateComponent } from './users/usercreate.component';
 import { AlertComponent } from './notifications/alert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForbiddenComponent } from './notifications/forbidden.component';
+import { NotFoundComponent } from './notifications/not-found.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ForbiddenComponent } from './notifications/forbidden.component';
         UserCreateComponent,
         AlertComponent,
         LoaderComponent,
-        ForbiddenComponent
+        ForbiddenComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,

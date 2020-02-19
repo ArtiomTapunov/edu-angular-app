@@ -24,6 +24,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
               switch (error.status) {
                 case 403: this.router.navigate(["forbidden"]);
+                case 404: this.router.navigate(["notfound"]);                
               }
 
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;   
