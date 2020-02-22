@@ -1,7 +1,7 @@
 import { LoaderComponent } from './loader/loader.component';
 import { LoginComponent } from './login/login.component';
 import { BasicLayoutComponent } from './layouts/basiclayout.component';
-import { NavigationComponent } from './layouts/navigation.component';
+import { NavigationComponent } from './layouts/navigation/navigation.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -14,6 +14,7 @@ import { AlertComponent } from './notifications/alert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForbiddenComponent } from './notifications/forbidden.component';
 import { NotFoundComponent } from './notifications/not-found.component';
+import { FooterComponent } from './layouts/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { NotFoundComponent } from './notifications/not-found.component';
         AlertComponent,
         LoaderComponent,
         ForbiddenComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -39,6 +41,7 @@ import { NotFoundComponent } from './notifications/not-found.component';
     ],
     exports: [
         NavigationComponent,
+        FooterComponent,
         BasicLayoutComponent,
         LoginComponent,
         ReactiveFormsModule,
