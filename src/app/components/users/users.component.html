@@ -1,40 +1,49 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <a routerLink="create">Create User</a>
+<div class="container-fluid">
+    <div class="row top-sticky">
+        <div class="col-lg-12 text-center">
+            <button type="button" class="btn btn-secondary btn-circle btn-xl shadow-lg" routerLink="create"><i class="fa fa-plus"></i></button>
         </div>
     </div>
     <div class="row">
-        <div class="col" *ngFor="let user of users">
-        <div class="row-lg-12">
-            {{ user.FirstName }}
-            {{ user.LastName }}
-            {{ user.Email }}
-            <a class="page-link" (click)="updateUser(user.UserId)">Update User</a>
-            <a class="page-link" (click)="deleteUser(user.UserId)">Delete User</a>
-        </div>
+        <div class="col-sm-3" *ngFor="let user of users">
+            <div class="card shadow" style="margin-bottom: 15px">
+                <img class="card-img-top bg-dark" src="assets/img/Nigma-Icon.png" alt="Card image cap"
+                    (click)="updateUser(user.UserId)">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.FirstName }} {{ user.LastName }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ user.Email }}</h6>
+                    <p class="card-text">{{ user.Role }}</p>
+                    <button type="button" class="btn btn-secondary" style="margin-right: 5px;"
+                        (click)="updateUser(user.UserId)">Update User</button>
+                    <button type="button" class="btn btn-secondary" 
+                        (click)="deleteUser(user.UserId)">Delete User</button>
+                </div>
+            </div>
         </div>
     </div>
-    <nav aria-label="Page navigation example">
-        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li class="page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
-            <a class="page-link" (click)="setPage(1)">First</a>
-        </li>
-        <li class="page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
-            <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
-        <li class="page-item"
-            *ngFor="let page of pager.pages"
-            [ngClass]="{ active: pager.currentPage === page }"
-        >
-            <a class="page-link" (click)="setPage(page)">{{ page }}</a>
-        </li>
-        <li class="page-item" [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
-            <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
-        <li class="page-item" [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
-            <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
-        </li>
+    <nav aria-label="Page navigation" class="bottom-sticky">
+        <ul *ngIf="pager.pages && pager.pages.length" class="list-unstyled pagination pagination-lg justify-content-center">
+            <li class="page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+                <a class="page-link" (click)="setPage(1)">First</a>
+            </li>
+            <li class="page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+                <a class="page-link" aria-label="Previous" (click)="setPage(pager.currentPage - 1)">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }">
+                <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
+                <a class="page-link" aria-label="Next" (click)="setPage(pager.currentPage + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+            <li class="page-item" [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
+                <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
         </ul>
     </nav>
 </div>

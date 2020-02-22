@@ -1,2 +1,109 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import './app/resources/styles/palette.scss';
+@import './app/resources/styles/media.scss';
 /* You can add global styles to this file, and also import other style files */
+
+//shadows
+// .shadow-lg-red {
+//     box-shadow: 0 1rem 3rem rgba(111, 66, 193, 0.7)!important;
+// }
+
+//backgrounds
+.bg-dark-01 {
+    background-color: $dark-01;
+}
+
+//navigation font size
+.navbar a  {
+    //color: white !important;
+    font-size: larger !important;
+}
+
+.navbar li {
+    padding-right:5px;
+}
+
+//circle buttons
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+    margin: 15px 0 15px 0;
+}
+
+.btn-floating {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    width: 47px;
+    height: 47px;
+}
+
+.btn-floating i {
+    font-size: 1.25rem;
+    line-height: 47px;
+    display: inline-block;
+    width: inherit;
+    color: #fff;
+    text-align: center;
+}
+
+//sticky elements
+.top-sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 15px;
+    z-index: 999;
+  }
+
+.bottom-sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 0px;
+    z-index: 999;
+  }
+
+ //dark pagination 
+.pagination {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0 !important;
+}
+
+.pagination > .active > a
+{
+    color: $gray-100 !important;
+    background-color: $gray-700 !important;
+    border: solid 2px $gray-700 !important;
+}
+
+.pagination > .page-item > .page-link {
+    border: 1px solid $gray-600 !important;
+}
+
+.pagination > li {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .375)!important;
+}
