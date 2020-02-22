@@ -9,7 +9,7 @@ import { MustMatch } from 'src/app/helpers/must-match.validator';
 @Component({
   selector: 'signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss', '../../shared/form-styles.scss']
+  styleUrls: ['./signup.component.scss', '../../resources/styles/form-styles.scss']
 })
 export class SignUpComponent implements OnInit {
 

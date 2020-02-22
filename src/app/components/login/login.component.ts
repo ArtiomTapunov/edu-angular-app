@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
     selector: "logincomponent",
     templateUrl: "./login.component.html",
-    styleUrls: ["./login.component.scss", "../../shared/form-styles.scss"]
+    styleUrls: ["./login.component.scss", "../../resources/styles/form-styles.scss"]
 })
 
 export class LoginComponent {
