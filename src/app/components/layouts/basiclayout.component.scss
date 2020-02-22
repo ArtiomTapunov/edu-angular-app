@@ -1,0 +1,18 @@
+.layout-bg {
+    background-image: url("../../../assets/img/nigma-all1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+.view {
+   min-height: 75vh !important;
+}
+
+.rgba-gradient .full-bg-img {
+    background: linear-gradient(45deg, rgba(29, 210, 177, 0.6), rgba(42, 27, 161, 0.6) 100%);
+}
+
+.light-gradient .full-bg-img {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.6) 100%),
+}
