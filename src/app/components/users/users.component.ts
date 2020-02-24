@@ -1,7 +1,7 @@
 import { AlertService } from './../../services/alert.service';
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PageInfo } from 'src/app/models/common.model';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { UserModel } from 'src/app/models/user.model';
@@ -18,47 +18,35 @@ export class UsersComponent implements OnInit {
   public usersPerPage = 8;
   public apiUsersPerPage = 30;
   public lastApiPage = 1;
+  public currentTotalPages : number;
   pager: any = {};
 
   constructor(
     private userManagementService: UserManagementService,
     private paginationService: PaginationService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private activateRoute: ActivatedRoute
   ) { this.pageInfo = new PageInfo() }
 
   ngOnInit() {
-    this.userManagementService.listUsers(this.initialPage).subscribe(
-      x => {
-        this.users = x.Data;
-        this.pageInfo = x.PageInfo;
-        this.setPage(this.initialPage);
-      },
-      error => {
-        this.alertService.error(error);
-        this.alertService.timeoutClear();
-      }
-    )
-  }
+    this.activateRoute.data.subscribe(data => {
+      this.users = data.UsersData.Users;
+      this.pageInfo = data.UsersData.PageInfo;
+      this.currentTotalPages = this.apiUsersPerPage*(data.PageInfo.TotalPages - 1) + Math.ceil(data.UsersData.UsersOnLastPage/this.usersPerPage);    
+      console.log(data.UsersData.Users);
+    })
 
-  getTotalPages() {
-    let usersOnLastPage = this.apiUsersPerPage;
-    this.userManagementService.listUsers(this.pageInfo.TotalPages).subscribe(
-      x => {
-        usersOnLastPage = x.Data.length;
-      },
-      error => {
-        this.alertService.error(error);
-        this.alertService.timeoutClear();
-      }
-    )  
-    return this.apiUsersPerPage*(this.pageInfo.TotalPages - 1) + Math.ceil(usersOnLastPage/this.usersPerPage);
+    if (this.users != undefined && this.pageInfo != undefined)
+      this.setPage(this.initialPage);
   }
-
+  
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
+
+    console.log(this.currentTotalPages);
 
     if (this.usersPerPage * page > this.users.length && this.lastApiPage < this.pageInfo.TotalPages) {
 
@@ -76,13 +64,8 @@ export class UsersComponent implements OnInit {
       )
     }
 
-    let totalPages = this.users.length % this.apiUsersPerPage != 0
-      ? Math.ceil(this.users.length / this.usersPerPage)
-      : Math.ceil(this.apiUsersPerPage * this.pageInfo.TotalPages / this.usersPerPage);
-
-
     // get pager object from service
-    this.pager = this.paginationService.getPager(totalPages, page, this.usersPerPage);
+    this.pager = this.paginationService.getPager(this.currentTotalPages, page, this.usersPerPage);
   }
 
   updateUser(userId: number) {

@@ -1,3 +1,4 @@
+import { UsersResolver } from './helpers/users-resolver.service';
 import { LoginGuard } from './helpers/login.guard';
 import { AdminGuard } from './helpers/admin.guard';
 import { UsersComponent } from './components/users/users.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: "users",
     component: BasicLayoutComponent,
     canActivate: [AuthGuard, AdminGuard],
+    resolve: { UsersData: UsersResolver },
     children: [
       {
         path: "",
