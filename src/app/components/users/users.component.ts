@@ -1,12 +1,10 @@
-import { LoaderService } from './../../services/loader.service';
 import { AlertService } from './../../services/alert.service';
 import { UserManagementService } from './../../services/usermanagement.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PageInfo } from 'src/app/models/common.model';
+import { Router } from '@angular/router';
+import { PageInfo, ExtendedPageInfo } from 'src/app/models/common.model';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { UserModel } from 'src/app/models/user.model';
-import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'userscomponent',
@@ -15,12 +13,8 @@ import { timeout } from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
   public users: UserModel[] = [];
-  public pageInfo: PageInfo;
-  public initialPage = 1;
-  public usersPerPage = 8;
-  public apiUsersPerPage = 30;
+  public pageInfo: ExtendedPageInfo;
   public lastApiPage = 1;
-  public usersOnLastPage : number;
   pager: any = {};
 
   constructor(
@@ -28,23 +22,23 @@ export class UsersComponent implements OnInit {
     private paginationService: PaginationService,
     private alertService: AlertService,
     private router: Router
-  ) { this.pageInfo = new PageInfo() }
+  ) { this.pageInfo = new ExtendedPageInfo() }
 
   ngOnInit() {
-    this.userManagementService.listUsers(this.initialPage).subscribe(
+    this.userManagementService.listUsers().subscribe(
       firstPage => {
         this.users = firstPage.Data;
-        this.pageInfo = firstPage.PageInfo;
+        this.pageInfo.ApiPageInfo = firstPage.PageInfo;
 
         this.userManagementService.listUsers(firstPage.PageInfo.TotalPages).subscribe(
           lastPage => {
-            this.usersOnLastPage = lastPage.Data.length;   
-            this.setPage(this.initialPage);        
+            this.pageInfo.ApiLastPageSize = lastPage.Data.length;
+            this.setPage();
           },
           error => {
             this.alertService.error(error);
             this.alertService.timeoutClear();
-          } 
+          }
         )
       },
       error => {
@@ -53,20 +47,20 @@ export class UsersComponent implements OnInit {
       }
     )
   }
-  
-  setPage(page: number) {
+
+  setPage(page: number = 1) {
     if (page < 1 || page > this.pager.totalPages) {
       return;
-    }  
+    }
 
-    if (this.usersPerPage * page > this.users.length && this.lastApiPage < this.pageInfo.TotalPages) {
+    if (this.pageInfo.PageSize * page > this.users.length && this.lastApiPage < this.pageInfo.ApiPageInfo.TotalPages) {
 
-      this.lastApiPage = Math.ceil(this.usersPerPage * page / this.apiUsersPerPage);
+      this.lastApiPage = Math.ceil(this.pageInfo.PageSize * page / this.pageInfo.ApiPageSize);
 
       this.userManagementService.listUsers(this.lastApiPage).subscribe(
         x => {
           this.users = this.users.concat(x.Data);
-          this.pageInfo = x.PageInfo;
+          this.pageInfo.ApiPageInfo = x.PageInfo;
         },
         error => {
           this.alertService.error(error);
@@ -75,9 +69,9 @@ export class UsersComponent implements OnInit {
       )
     }
 
-    let currentTotalPages = Math.ceil((this.apiUsersPerPage*(this.pageInfo.TotalPages - 1) + this.usersOnLastPage)/this.usersPerPage); 
+    let currentTotalPages = Math.ceil((this.pageInfo.ApiPageSize * (this.pageInfo.ApiPageInfo.TotalPages - 1) + this.pageInfo.ApiLastPageSize) / this.pageInfo.PageSize);
     // get pager object from service
-    this.pager = this.paginationService.getPager(currentTotalPages, page, this.usersPerPage);
+    this.pager = this.paginationService.getPager(currentTotalPages, page, this.pageInfo.PageSize);
   }
 
   updateUser(userId: number) {

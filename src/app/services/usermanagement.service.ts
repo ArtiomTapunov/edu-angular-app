@@ -16,7 +16,7 @@ export class UserManagementService {
 
     constructor(private http: HttpClient){}
 
-    listUsers(pageNumber: number): Observable<ListViewModel<UserModel>> {
+    listUsers(pageNumber: number = 1): Observable<ListViewModel<UserModel>> {
         if (typeof pageNumber !== "number" || pageNumber != pageNumber || pageNumber <= 0) {
             pageNumber = 1;
         }
