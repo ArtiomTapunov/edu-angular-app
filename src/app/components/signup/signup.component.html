@@ -11,21 +11,21 @@
       <form [formGroup]="registerForm" (ngSubmit)="signUp()">
         <div class="form-group" >
             <input type="text" formControlName="firstName" id="first-name" class="fadeIn second" name="first-name" placeholder="First Name" 
-              [ngClass]="{ 'is-invalid': submitted && field.firstName.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.firstName.errors }">
             <div *ngIf="submitted && field.firstName.errors" class="invalid-feedback">
               <div *ngIf="field.firstName.errors.required">First Name is required</div>
             </div>
         </div>
         <div class="form-group" >
             <input type="text" formControlName="lastName" id="last-name" class="fadeIn third" name="last-name" placeholder="Last Name" 
-              [ngClass]="{ 'is-invalid': submitted && field.lastName.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.lastName.errors }">
             <div *ngIf="submitted && field.lastName.errors" class="invalid-feedback">
               <div *ngIf="field.lastName.errors.required">First Name is required</div>
             </div>
         </div>
         <div class="form-group" >
             <input type="text" formControlName="email" id="email" class="fadeIn fourth" name="email" placeholder="Email" 
-              [ngClass]="{ 'is-invalid': submitted && field.email.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.email.errors }">
             <div *ngIf="submitted && field.email.errors" class="invalid-feedback">
               <div *ngIf="field.email.errors.required">Email is required</div>
               <div *ngIf="field.email.errors.pattern">Email must be a valid email address</div>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group" >
             <input type="text" formControlName="password" id="password" class="fadeIn fifth" name="password" placeholder="Password" 
-              [ngClass]="{ 'is-invalid': submitted && field.password.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.password.errors }">
             <div *ngIf="submitted && field.password.errors" class="invalid-feedback">
               <div *ngIf="field.password.errors.required">Password is required</div>
               <div *ngIf="field.password.errors.minlength">Password must be at least 6 characters</div>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group" >
             <input type="text" formControlName="confirmPassword" id="password-confirm" class="fadeIn sixth" name="password-confirm" placeholder="Confirm Password" 
-              [ngClass]="{ 'is-invalid': submitted && field.confirmPassword.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.confirmPassword.errors }">
             <div *ngIf="submitted && field.confirmPassword.errors" class="invalid-feedback">
               <div *ngIf="field.confirmPassword.errors.required">Password is required</div>
               <div *ngIf="field.confirmPassword.errors.minlength">Password must be at least 6 characters</div>
