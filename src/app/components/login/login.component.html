@@ -11,7 +11,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="form-group">
             <input type="text" formControlName="email" id="email" class="fadeIn second" name="email" placeholder="Email" 
-              [ngClass]="{ 'is-invalid': submitted && field.email.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.email.errors }">
             <div *ngIf="submitted && field.email.errors" class="invalid-feedback">
               <div *ngIf="field.email.errors.required">Email is required</div>
               <div *ngIf="field.email.errors.pattern">Email must be a valid email address</div>
@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <input type="text" formControlName="password" id="password" class="fadeIn third" name="login" placeholder="Password"
-              [ngClass]="{ 'is-invalid': submitted && field.password.errors }">
+              [ngClass]="{ 'is-invalid input-error': submitted && field.password.errors }">
             <div *ngIf="submitted && field.password.errors" class="invalid-feedback">
                 <div *ngIf="field.password.errors.required">Password is required</div>
                 <div *ngIf="field.password.errors.minlength">Password must be at least 6 characters</div>
